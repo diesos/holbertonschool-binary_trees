@@ -1,18 +1,23 @@
 #include "binary_trees.h"
 
 /**
- * binary_tree_uncle - finds the uncle of a node
- * @node: pointer to the node to find the uncle
- *
- * Return: pointer to the uncle node, or NULL if node has no uncle
- */
-binary_tree_t *binary_tree_uncle(binary_tree_t *node)
+* binary_tree_size - measures the size of a binary tree
+* @tree: pointer to the root node of the tree to measure the size
+* Return: size of the tree
+*/
+size_t binary_tree_size(const binary_tree_t *tree)
 {
-	if (node == NULL || node->parent == NULL || node->parent->parent == NULL)
-		return (NULL);
+	size_t left_node;
+	size_t right_node;
+	size_t size;
 
-	if (node->parent->parent->left == node->parent)
-		return (node->parent->parent->right);
-	else
-		return (node->parent->parent->left);
+	if (tree == NULL)
+		return (0);
+
+	left_node = binary_tree_size(tree->left);
+	right_node = binary_tree_size(tree->right);
+
+	size = left_node + right_node + 1;
+
+	return (size);
 }
